@@ -2,7 +2,7 @@ class Echo < CampfireBot::Plugin
   on_command 'echo', :say
   on_command 'say', :say
   on_command 'tell', :tell
-  on_message %r[Ruby, do you]i, :do_you
+  on_message %r[Ruby, (do|don't) you]i, :do_you
   on_message %r[(I'm |hea(d|ded|ding|din') )out]i, :goodbye
   on_message %r[Ruby, what do you think]i, :what_i_think
 
@@ -10,7 +10,7 @@ class Echo < CampfireBot::Plugin
     @log = Logging.logger["CampfireBot::Plugin::Echo"]
   end
 
-  def do_you
+  def do_you(m)
     m.speak ['Yes.', 'No.', 'I guess so...', 'Perhaps.', 'Why are you asking me?'].sample
   end
   
