@@ -1,13 +1,13 @@
 #!/usr/bin/env ruby
 
-BOT_ROOT = "/home/scott/rails/campfire-bot"
+BOT_ROOT = ENV['CAMPFIRE_BOT_ROOT']
 
 God.watch do |w|
   w.name = "campfire-bot"
-  w.log  = "#{BOT_ROOT}/tmp/campfire-bot.log"
+  w.log  = "#{BOT_ROOT}/log/campfire-bot.log"
 
   w.start = "cd #{BOT_ROOT} && campfire-bot -c ./config.yml -e production -p ./plugins"
-  w.stop  = "#{BOT_ROOT}/cfbot-stop.sh"
+  w.stop  = "#{BOT_ROOT}/bin/cfbot-stop.sh"
 
   w.keepalive
 
