@@ -1,9 +1,13 @@
 class Reloader < CampfireBot::Plugin
   on_command 'reload', :reload
 
-  def reload
-    what = m[:message]
-    things_to_reload = ['plugins' => :load_plugins]
-    CampfireBot::Bot.instance.send things_to_reload[what]
+  def initialize
+    @log = Logging.logger["CampfireBot::Plugin::Reloader"]
+  end
+
+  def reload(m)
+    # Cheat for now and just exit! to reload everything
+    m.speak 'Reloading...'
+    exit!
   end
 end
