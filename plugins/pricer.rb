@@ -1,4 +1,5 @@
 require 'nokogiri'
+require 'open-uri'
 
 class Pricer < CampfireBot::Plugin
   on_message %r[(price of gold|gold price)], :gold_price
