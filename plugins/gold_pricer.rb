@@ -2,7 +2,7 @@ require 'nokogiri'
 require 'open-uri'
 
 class GoldPricer < CampfireBot::Plugin
-  attr_accessor :page, :data
+  attr_accessor :page
 
   on_message %r/GOLD/, :gold_price
 
@@ -12,7 +12,6 @@ class GoldPricer < CampfireBot::Plugin
 
   def gold_price(m)
     page = Nokogiri::HTML(open gold_url)
-    data = load_gold_data
     m.speak response
   end
 
@@ -27,30 +26,13 @@ class GoldPricer < CampfireBot::Plugin
     end
 
     def response
+      data = parse_gold_data
+      bid  = data[3].content
+      ask  = data[4].content
+      low  = data[7].content
+      hi   = data[8].content
+      date = data[1].content
+      time = data[2].content
       "GOLD - bid: #{bid} ask: #{ask} - low: #{low} hi: #{hi} - #{date} #{time} #{gold_url}"
-    end
-
-    def bid
-      data[3].content
-    end
-
-    def ask
-      data[4].content
-    end
-
-    def low
-      data[7].content
-    end
-
-    def hi
-      data[8].content
-    end
-
-    def date
-      data[1].content
-    end
-
-    def time
-      data[2].content
     end
 end
